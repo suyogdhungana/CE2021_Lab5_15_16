@@ -39,16 +39,32 @@ bool Graph::isDirected()
 
 void Graph::addVertex(Vertex *newVertex)
 {
-    for (int i = 0; i <= numVertices; i++)
+    Vertex **temp = new Vertex *[numVertices + 1];
+    for (int i = 0; i < numVertices; i++)
     {
-        adjMatrix[numVertices][i] = false;
+        temp[i] = vertices[i];
     }
-    for (int i = 0; i <= numVertices; i++)
-    {
-        adjMatrix[i][numVertices] = false;
-    }
+    temp[numVertices] = newVertex;
+    vertices = temp;
 
-    vertices[numVertices] = newVertex;
+    bool **tempMatrix = new bool *[numVertices + 1];
+    for (int i = 0; i < numVertices + 1; i++)
+    {
+        tempMatrix[i] = new bool[numVertices + 1];
+        for (int j = 0; j < numVertices + 1; ++j)
+        {
+            tempMatrix[i][j] = false;
+        }
+    }
+    for (int i = 0; i < numVertices; i++)
+    {
+        for (int j = 0; j < numVertices; j++)
+        {
+            tempMatrix[i][j] = adjMatrix[i][j];
+        }
+    }
+    adjMatrix = tempMatrix;
+
     ++numVertices;
 }
 
