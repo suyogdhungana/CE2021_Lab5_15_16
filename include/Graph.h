@@ -5,37 +5,47 @@
 
 struct Vertex
 {
-    int data;
-    Vertex *head;
-    Vertex *tail;
-    Vertex *prev;
-    Vertex *next;
+    int index;
+    char node;
+
+    Vertex() : index(-1) {}
+    Vertex(int i, char c) : index(i), node(c) {}
 };
 
 class Graph
 {
 private:
-    int numVertex;
+    int numVertices;
+    bool **adjMatrix;
+    Vertex **vertices;
+    bool directed;
 
 public:
     Graph();
+    Graph(bool);
     ~Graph();
 
     bool isEmpty();
     bool isDirected();
 
-    void addVertex(Vertex newVertex);
-    void addEdge(Vertex vertex1, Vertex vertex2);
+    void addVertex(Vertex *newVertex);
+    void addEdge(Vertex *vertex1, Vertex *vertex2);
 
-    int numVertices();
+    void removeVertex(Vertex *vertexToRemove);
+    void removeEdge(Vertex *vertex1, Vertex *vertex2);
+
+    int numVertex();
     int numEdges();
 
-    int indegree(Vertex vertex);
-    int outdegree(Vertex vertex);
-    int degree(Vertex vertex);
+    int indegree(Vertex *vertex);
+    int outdegree(Vertex *vertex);
+    int degree(Vertex *vertex);
 
-    int neighbours(Vertex vertex);
-    bool neighbour(Vertex vertex1, Vertex vertex2);
+    // int neighbours(Vertex *vertex);
+    bool neighbour(Vertex *vertex1, Vertex *vertex2);
+
+    void displayMatrix();
+    void remove(int index);
 };
 
 #endif
